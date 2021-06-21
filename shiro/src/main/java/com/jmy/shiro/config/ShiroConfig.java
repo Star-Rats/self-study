@@ -1,5 +1,6 @@
 package com.jmy.shiro.config;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.crypto.hash.Hash;
@@ -50,8 +51,8 @@ public class ShiroConfig {
         realm.setCredentialsMatcher(matcher);
 
         // 缓存管理器
-        realm.setAuthenticationCachingEnabled(true);
-        realm.setAuthorizationCachingEnabled(true);
+        /*realm.setAuthenticationCachingEnabled(true);
+        realm.setAuthorizationCachingEnabled(true);*/
         realm.setCacheManager(new EhCacheManager());
         return realm;
     }

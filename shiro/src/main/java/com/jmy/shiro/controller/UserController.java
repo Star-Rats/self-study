@@ -11,10 +11,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -41,7 +38,7 @@ public class UserController {
 
     @PostMapping("/regist")
     @ApiOperation(value = "用户注册",notes = "用户注册")
-    public String regist(User user){
+    public String regist(@RequestBody User user){
         try {
             userService.regist(user);
         } catch (Exception e) {
