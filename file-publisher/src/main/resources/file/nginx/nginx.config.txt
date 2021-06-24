@@ -1,0 +1,18 @@
+server {
+		listen 80;
+		server_name www.jiangmingyang.com;
+		location /{
+			root d://easymall;
+			index index.html;
+		}
+
+}
+
+server {
+		listen {{port}};
+		server_name {{domainName}};
+		location {{url}}{
+			proxy_pass {{proxy_pass}};
+		}
+
+}
