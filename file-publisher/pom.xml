@@ -104,13 +104,20 @@
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>**/*.docx</exclude>
+                    <exclude>static/**/*.woff</exclude>
+                    <exclude>static/**/*.woff2</exclude>
+                    <exclude>static/**/*.ttf</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
                 <includes>
+                    <include>static/**</include>
                     <include>**/*.docx</include>
+                    <include>static/**/*.woff</include>
+                    <include>static/**/*.woff2</include>
+                    <include>static/**/*.ttf</include>
                 </includes>
             </resource>
         </resources>

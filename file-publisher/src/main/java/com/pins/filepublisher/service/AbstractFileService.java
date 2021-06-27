@@ -2,12 +2,11 @@ package com.pins.filepublisher.service;
 
 import com.deepoove.poi.config.Configure;
 import com.deepoove.poi.policy.PictureRenderPolicy;
-import com.pins.filepublisher.model.vo.NginxConfigVO;
+import com.pins.filepublisher.model.NginxConfig;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 public abstract class AbstractFileService {
     /**
@@ -33,6 +32,6 @@ public abstract class AbstractFileService {
             .addPlugin('@', new PictureRenderPolicy())
             .build();
     
-    abstract void generatingFile(NginxConfigVO configVO) throws IOException;
+    abstract void generatingFile(NginxConfig configVO) throws IOException;
 
 }

@@ -21,18 +21,18 @@
 </ul>
 
 <h1 style="text-align: center"><i class="layui-icon layui-icon-website" style="font-size: 30px; color: #1e43ff;"></i>Nginx配置文件发布系统</h1>
-<form class="layui-form" action="">
+<form class="layui-form" action="/nginx/add-config" method="post">
     <div class="layui-form-item">
         <label class="layui-form-label">域名</label>
         <div class="layui-input-block">
-            <input type="text" name="title" required lay-verify="required" placeholder="请输入域名" autocomplete="off"
+            <input type="text" name="domainName" required lay-verify="required" placeholder="请输入域名" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">监听端口</label>
         <div class="layui-input-block">
-            <input type="text" name="title" required lay-verify="required" placeholder="请输入端口号例：8080" autocomplete="off"
+            <input type="text" name="port" required lay-verify="required" placeholder="请输入端口号例：8080" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -40,21 +40,21 @@
         <div class="layui-form-item">
             <label class="layui-form-label">location</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required lay-verify="required" placeholder="例：/api" autocomplete="off"
+                <input type="text" name="url" required lay-verify="required" placeholder="例：/api" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">proxy_pass</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required lay-verify="required" placeholder="请输入转发地址" autocomplete="off"
+                <input type="text" name="proxyPass" required lay-verify="required" placeholder="请输入转发地址" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">upstream</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required lay-verify="required" placeholder="单节点可不填" autocomplete="off"
+                <input type="text" name="upstream" placeholder="单节点可不填" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
@@ -72,12 +72,30 @@
 <script>
     //Demo
     layui.use('form', function () {
+      /*  let baseUrl = "/nginx/add-config";*/
         var form = layui.form;
-
         //监听提交
         form.on('submit(formDemo)', function (data) {
-            layer.msg(JSON.stringify(data.field));
-            return false;
+            let config = JSON.stringify(data.field);
+            layer.msg(config);
+           /* debugger
+            $.ajax({
+                url:baseUrl,    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data:config,    //参数值
+                type:"POST",   //请求方式
+
+                success:function(req){
+                    //请求成功时处理
+                },
+
+                error:function(){
+                    //请求出错处理
+                }
+            });*/
+
+            return true;
         });
     });
 
@@ -99,19 +117,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label">location</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required="" lay-verify="required" placeholder="例：/api" autocomplete="off" class="layui-input">
+                <input type="text" name="url" required="" lay-verify="required" placeholder="例：/api" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">proxy_pass</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required="" lay-verify="required" placeholder="请输入转发地址" autocomplete="off" class="layui-input">
+                <input type="text" name="proxyPass" required="" lay-verify="required" placeholder="请输入转发地址" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">upstream</label>
             <div class="layui-input-block">
-                <input type="text" name="title" required="" lay-verify="required" placeholder="单节点可不填" autocomplete="off" class="layui-input">
+                <input type="text" name="upstream" placeholder="单节点可不填" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
