@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nginx 配置发布</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+<body>
+<script src="./layui/layui.js"></script>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><a href="">动静分离</a></li>
+    <li class="layui-nav-item layui-this"><a href="">动态代理</a></li>
+    <!-- <li class="layui-nav-item">
+         <a href="javascript:;">解决方案</a>
+         <dl class="layui-nav-child"> &lt;!&ndash; 二级菜单 &ndash;&gt;
+             <dd><a href="">移动模块</a></dd>
+             <dd><a href="">后台模版</a></dd>
+             <dd><a href="">电商平台</a></dd>
+         </dl>
+     </li>-->
+</ul>
+
+<h1 style="text-align: center"><i class="layui-icon layui-icon-website" style="font-size: 30px; color: #1e43ff;"></i>Nginx配置文件发布系统</h1>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">域名</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required lay-verify="required" placeholder="请输入域名" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">监听端口</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required lay-verify="required" placeholder="请输入端口号例：8080" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div name="location">
+        <div class="layui-form-item">
+            <label class="layui-form-label">location</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="例：/api" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">proxy_pass</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入转发地址" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">upstream</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="单节点可不填" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="buttons">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="button" class="layui-btn layui-btn-normal" onclick="moreLocation()">更多的location</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+
+    // 点击更多的location弹出新的输入框
+    var moreLocation = () => {
+        let buttons = document.getElementById("buttons");
+        let location = document.getElementsByName("location");
+        //console.log(location[0])
+        var element = document.createElement("div");
+        element.innerHTML = `
+            <div name="location">
+        <div class="layui-form-item">
+            <label class="layui-form-label">location</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required="" lay-verify="required" placeholder="例：/api" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">proxy_pass</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required="" lay-verify="required" placeholder="请输入转发地址" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">upstream</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required="" lay-verify="required" placeholder="单节点可不填" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+        `
+
+        buttons.parentElement.insertBefore(element,buttons);
+
+    }
+</script>
+
+</body>
+</html>

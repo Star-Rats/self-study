@@ -1,11 +1,12 @@
 package com.pins.filepublisher.service;
 
 import cn.hutool.core.io.file.FileWriter;
+import com.spire.doc.*;
 import com.deepoove.poi.XWPFTemplate;
 import com.pins.filepublisher.model.vo.NginxConfigVO;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +18,21 @@ public class ConfigFileService extends AbstractFileService {
     void generatingFile(NginxConfigVO configVO) throws IOException {
         Map<String, Object> model = this.buildModel(configVO);
 
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
         try (XWPFTemplate template = XWPFTemplate.compile("D:\\IDEAProject\\self-study\\file-publisher\\src\\main\\resources\\file\\nginx\\nginx-config.docx",AbstractFileService.configure).render(model)) {
-            template.write(byteArrayOutputStream);
+            FileOutputStream out = new FileOutputStream("output.docx");
+            template.write(out);
         }
 
-        FileWriter writer = new FileWriter("D:/nginx.txt");
-        writer.write(byteArrayOutputStream.toString("utf-8"));
+        // 将word的文字提取出来转换成文本文件
+
+        //加载Word文档
+        Document document = new Document();
+        document.loadFromFile("output.docx");
+
+        //获取文档中的文本保存为String
+        String text=document.getText();
+        FileWriter writer = new FileWriter("d://nginx.config");
+        writer.write(text);
 
     }
 
