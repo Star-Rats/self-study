@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/nginx")
 public class NginxFileController {
@@ -16,7 +18,11 @@ public class NginxFileController {
 
     @PostMapping("/add-config")
     public Result addNginxConfig(NginxConfigVO nginxConfigVO){
-        nginxConfigFileService.addConfig(nginxConfigVO);
+        try {
+            nginxConfigFileService.addConfig(nginxConfigVO);
+        } catch (IOException e) {
+            return new Result(Result.ERROR_CODE,"操作失败！",null);
+        }
         return new Result(Result.SUCCESS_CODE,"操作成功！",null);
     }
 }
