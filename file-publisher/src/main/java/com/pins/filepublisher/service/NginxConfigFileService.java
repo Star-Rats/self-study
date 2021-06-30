@@ -1,5 +1,6 @@
 package com.pins.filepublisher.service;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileWriter;
 import com.pins.filepublisher.model.NginxConfigDTO;
 import com.pins.filepublisher.model.vo.NginxConfigVO;
@@ -11,16 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class NginxConfigFileService extends AbstractFileService {
-
+    public final static String CONFIGFILEPATH = "D:\\pins\\hospital-manage-2020-server\\src\\main\\java\\com\\pinshealth\\manage\\controller";
     @Autowired
     private ShellService shellService;
 
@@ -81,7 +81,9 @@ public class NginxConfigFileService extends AbstractFileService {
     }
 
     public static void main(String[] args) throws IOException {
-
+        File[] ls = FileUtil.ls(CONFIGFILEPATH);
+        Arrays.stream(ls).map(File::getName).forEach(System.out::println);
+        System.exit(0);
     }
 
     public void addConfig(NginxConfigVO nginxConfigVO) throws IOException {
@@ -104,6 +106,11 @@ public class NginxConfigFileService extends AbstractFileService {
 
         nginxConfig.setLocation(location);
         this.generatingFile(nginxConfig);
+    }
+
+    public List<File> listConfigFiles() {
+        File[] ls = FileUtil.ls(CONFIGFILEPATH);
+        return Arrays.asList(ls);
     }
 
     private String createNginxConfig(String location,String proxy_pass){
