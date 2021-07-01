@@ -20,7 +20,8 @@ import java.util.*;
 
 @Service
 public class NginxConfigFileService extends AbstractFileService {
-    public final static String CONFIGFILEPATH = "D:\\pins\\hospital-manage-2020-server\\src\\main\\java\\com\\pinshealth\\manage\\controller";
+    //public final static String CONFIGFILEPATH = "D:\\pins\\hospital-manage-2020-server\\src\\main\\java\\com\\pinshealth\\manage\\controller";
+    public final static String CONFIGFILEPATH = "/usr/nginx/conf-custom";
     @Autowired
     private ShellService shellService;
 

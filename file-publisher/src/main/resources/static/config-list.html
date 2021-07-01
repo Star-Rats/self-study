@@ -9,10 +9,9 @@
 <script src="./layui/layui.js"></script>
 <ul class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a href="">动静分离</a></li>
-    <li class="layui-nav-item layui-this"><a href="">动态代理</a></li>
-    <li class="layui-nav-item layui-this"><a href="">当前配置</a></li>
+    <li class="layui-nav-item"><a href="file-publisher.html">动态代理</a></li>
+    <li class="layui-nav-item layui-this"><a>当前配置</a></li>
 </ul>
-
 <h1 style="text-align: center"></i>Nginx配置文件列表</h1>
 <table class="layui-table" style="margin-left: 542px; margin-top: 41px;">
     <colgroup>
@@ -25,16 +24,51 @@
         <th>配置文件</th>
     </tr>
     </thead>
-    <tbody>
-    <tr>
+    <tbody id="configTable">
+    <!--<tr>
         <td>人生就像是一场修行</td>
     </tr>
     <tr>
 
         <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-    </tr>
+    </tr>-->
     </tbody>
 </table>
+
+<script>
+    window.onload = function () {
+        let configTable = document.getElementById("configTable");
+        let xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "http://192.168.1.78:8080/nginx/config-list", true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function(){
+
+            let XMLHttpReq = xhr;
+            if (XMLHttpReq.readyState === 4) {
+                if (XMLHttpReq.status === 200) {
+                    let data = XMLHttpReq.responseText;
+                    let json = JSON.parse(data);
+                    let files = json.data;
+                    for (let i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        file = file.replaceAll("\\","/");
+                        console.log(file);
+                        let tr = document.createElement("tr");
+                        let downLoadUrl = 'http://192.168.1.78:8080/nginx/down-load?filePath=' + file;
+                        let onlineUrl = 'http://192.168.1.78:8080/nginx/down-load?isOnLine=true&filePath=' + file;
+                        let downLoad = "<a style='float: right; margin-right: 24px;' class='url' href=" + onlineUrl + ">预览</a>    ";
+                        let online = "<a style='float: right' href= " +  downLoadUrl+ ">下载</a>";
+                        tr.innerHTML = "<td>" + file.substring(file.lastIndexOf("/")+1,file.length) + online + downLoad +  "</td>";
+                        configTable.appendChild(tr);
+                    }
+                }
+            }
+        };
+
+        xhr.send();
+    }
+</script>
 
 </body>
 </html>
