@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "aliyun.endpoint",
+      "type": "java.lang.String",
+      "description": "Aliyun OSS Bucket 所属区域的域名"
+    },
+    {
+      "name": "aliyun.accessKeyId",
+      "type": "java.lang.String",
+      "description": "Aliyun OSS accessKeyId"
+    },
+    {
+      "name": "aliyun.accessKeySecret",
+      "type": "java.lang.String",
+      "description": "Aliyun OSS accessKeyId accessKeySecret"
+    }
+  ] }

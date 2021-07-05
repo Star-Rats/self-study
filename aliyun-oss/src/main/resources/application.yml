@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: aliyun-oss
+
+aliyun:
+  endpoint:
+  accessKeyId:
+  accessKeySecret:
