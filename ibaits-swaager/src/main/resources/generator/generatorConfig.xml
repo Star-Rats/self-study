@@ -11,13 +11,17 @@
         <property name="endingDelimiter" value="`"/>
 
         <!--覆盖生成XML文件-->
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <!--<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />-->
         <!-- 生成的实体类添加toString()方法 -->
         <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
 
         <!-- 不生成注释 -->
-        <commentGenerator>
-            <property name="suppressAllComments" value="true"/>
+        <!--<commentGenerator>
+            &lt;!&ndash;<property name="suppressAllComments" value="true"/>&ndash;&gt;
+            <property name="addRemarkComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>-->
+        <commentGenerator type="com.jmy.generator.PinsCommentGenerator">
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
@@ -40,9 +44,9 @@
                              type="XMLMAPPER" />
 
         <table tableName="t_user" domainObjectName="User"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true"/>
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
 
         <!--mvn mybatis-generator:generate-->
     </context>

@@ -1,12 +1,24 @@
 package com.jmy.model;
 
 public class User {
+    /**
+     * 
+     */
     private Integer id;
 
+    /**
+     * 用户姓名
+     */
     private String username;
 
+    /**
+     * 
+     */
     private String password;
 
+    /**
+     * 
+     */
     private String salt;
 
     public Integer getId() {
