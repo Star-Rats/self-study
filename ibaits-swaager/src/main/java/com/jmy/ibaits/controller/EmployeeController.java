@@ -4,16 +4,20 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jmy.ibaits.model.EmployeeDO;
+import com.jmy.ibaits.model.param.EmpVO;
 import com.jmy.ibaits.model.param.EmployeeParam;
 import com.jmy.ibaits.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -34,5 +38,21 @@ public class EmployeeController {
         PageInfo<EmployeeDO> page = new PageInfo<EmployeeDO>(dos.getResult());
         System.out.println(dos.getTotal());
         return page;
+    }
+
+    @GetMapping("map")
+    public List<Map<String,Object>> mapList(){
+        return employeeService.findAll();
+    }
+
+    @PostMapping("save")
+    public Integer mapList(@RequestBody EmpVO empVO){
+        return employeeService.save(empVO);
+    }
+
+    @GetMapping("schedule")
+    public void schedule(String name){
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(5);
+        ses.scheduleAtFixedRate(() -> System.out.println("hello" + name),3,5, TimeUnit.SECONDS);
     }
 }
