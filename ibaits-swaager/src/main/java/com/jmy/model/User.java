@@ -7,7 +7,7 @@ public class User {
     private Integer id;
 
     /**
-     * ç”¨æˆ·å§“å
+     * ÓÃ»§ĞÕÃû
      */
     private String username;
 

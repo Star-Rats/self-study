@@ -55,4 +55,14 @@ public class EmployeeController {
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(5);
         ses.scheduleAtFixedRate(() -> System.out.println("hello" + name),3,5, TimeUnit.SECONDS);
     }
+
+    @PostMapping("ds/mysql")
+    public List<Map<String,Object>> dsQuery(){
+        return employeeService.selectByCondition();
+    }
+
+    @PostMapping("ds/sqlserver")
+    public List<Map<String,Object>> dsQueryS(){
+        return employeeService.selectByCondition1();
+    }
 }

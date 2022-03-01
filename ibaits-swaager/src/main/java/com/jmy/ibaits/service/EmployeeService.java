@@ -14,4 +14,8 @@ public interface EmployeeService {
     List<Map<String, Object>> findAll();
 
     Integer save(EmpVO empVO);
+
+    List<Map<String,Object>> selectByCondition();
+
+    List<Map<String,Object>> selectByCondition1();
 }
