@@ -1,5 +1,6 @@
 package com.jmy.ibaits.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -57,7 +58,7 @@ public class EmployeeController {
     }
 
     @PostMapping("ds/mysql")
-    public List<Map<String,Object>> dsQuery(){
+    public List<Map<String,Object>> dsQuery() throws JsonProcessingException {
         return employeeService.selectByCondition();
     }
 

@@ -1,5 +1,6 @@
 package com.jmy.ibaits.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.Page;
 import com.jmy.ibaits.model.EmployeeDO;
 import com.jmy.ibaits.model.param.EmpVO;
@@ -15,7 +16,7 @@ public interface EmployeeService {
 
     Integer save(EmpVO empVO);
 
-    List<Map<String,Object>> selectByCondition();
+    List<Map<String,Object>> selectByCondition() throws JsonProcessingException;
 
     List<Map<String,Object>> selectByCondition1();
 }

@@ -1,17 +1,18 @@
 package com.jmy.ibaits.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.github.pagehelper.Page;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jmy.ibaits.mapper.EmployeeMapper;
 import com.jmy.ibaits.model.EmployeeDO;
 import com.jmy.ibaits.model.param.EmpVO;
 import com.jmy.ibaits.model.param.EmployeeParam;
 import com.jmy.ibaits.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,10 +42,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeMapper.save(empVO);
     }
 
+    @SuppressWarnings("unchecked")
     @DS("mysql_2")
     @Override
-    public List<Map<String,Object>> selectByCondition() {
-        return  jdbcTemplate.queryForList("select * from sys_user");
+    public List<Map<String,Object>> selectByCondition() throws JsonProcessingException {
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList("select * from sys_user");
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(maps);
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        mapList = mapper.readValue(json, List.class);
+        System.out.println(mapList.get(0).get("id"));
+        System.out.println(mapList.get(0).get("username"));
+        return maps;
     }
 
     @DS("mysql_3")
